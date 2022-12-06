@@ -18,8 +18,10 @@ class Utils {
             return df.format(c)
         }
 
-        val USERS_SHARED_DATA_PREF = "my_prefs"
-        val PRIVATE_MODE = 0
+        val DEFAULT_WAKEUP_TIME = 1670239800000 // 6:30 AM
+        val DEFAULT_SLEEP_TIME = 1670297400000 // 10:30 PM
+        val USERS_SHARED_DATA_PREF = "drink_app_prefs"
+        val USER_NAME = "username"
         val WEIGHT_PREFS = "weight"
         val WORK_TIME_PREFS = "worktime"
         val TOTAL_INTAKE = "totalintake"

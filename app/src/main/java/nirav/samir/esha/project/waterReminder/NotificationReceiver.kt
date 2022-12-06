@@ -5,12 +5,15 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
+import androidx.appcompat.app.AppCompatActivity
 
 class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
-        val prefs = context.getSharedPreferences(Utils.USERS_SHARED_DATA_PREF, Utils.PRIVATE_MODE)
+        val prefs = context.getSharedPreferences(Utils.USERS_SHARED_DATA_PREF,
+            AppCompatActivity.MODE_PRIVATE
+        )
         val notificationsTone = prefs.getString(
             Utils.NOTIFICATION_TONE_URI_PREFS, RingtoneManager.getDefaultUri(
                 RingtoneManager.TYPE_NOTIFICATION

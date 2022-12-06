@@ -1,20 +1,23 @@
 <resources>
     <string name="app_name">Dr.ink</string>
     <string name="tagline_text">Your drink assistance</string>
-    <string name="welcome_text">We will remind you everyday to keep you healthy</string>
+    <string name="welcome_text">We will remind you to drink water, keep track of your water intake and avoid dehydration</string>
     <string name="get_start">Get Started</string>
     <string name="welcome_image">Welcome Image</string>
 
-    <string name="pref_notification_message_value">Hi… It\'s time to drink some water…</string>
-    <string name="add_info_text">Please provide some information.</string>
-    <string name="continue_">Continue</string>
-    <string name="enter_your_name_hint">Enter your name</string>
-    <string name="age_hint">Enter your age</string>
-    <string name="weight_hint">Enter your weight in Kg</string>
-    <string name="custom_intake_hint">Enter your custom intake target in ml</string>
-    <string name="workout_hint">Your daily work out time in min/day</string>
+    <string name="add_info_text">Please add your information</string>
+    <string name="user_name_hint">Enter your name</string>
+    <string name="weight_hint">Your weight in Kg</string>
+    <string name="workout_hint">Your physical activity in minutes/day</string>
     <string name="wakeup_hint">Your wake up time</string>
     <string name="sleeping_hint">Your Sleep time</string>
+    <string name="continue_">Continue</string>
+
+    <string name="today_s_goal">Today\'s Goal</string>
+    <string name="hello">Hello,</string>
+    <string name="pref_notification_message_value">Hi… It\'s time to drink some water…</string>
+    <string name="custom_intake_hint">Enter your custom intake target in ml</string>
+
 
     <string name="edit_info_text">Edit Your Information</string>
     <string name="update">Update</string>
@@ -22,6 +25,25 @@
     <string name="notification_message_hint">Notification Message</string>
     <string name="notification_tone_hint">Notification Tone</string>
     <string name="notification_hint">Notification Frequency</string>
+    <string name="drink_x_ml">Drink x ml</string>
+    <string name="user_name_error_msg">Please enter username</string>
+    <string name="weight_error_msg">Please enter body weight</string>
+    <string name="invalid_weight_error_msg">Please enter a valid body weight</string>
+    <string name="workout_time_error_msg">Please enter your workout time</string>
+    <string name="invalid_workout_time_error_msg">Please enter a valid workout time</string>
+    <string name="click_back">Click BACK again to exit</string>
+    <string name="user_information">User Information</string>
+    <string name="select_rt">Select ringtone for notifications:</string>
+    <string name="custom_target_err_msg">Please input your custom target</string>
+    <string name="update_success_msg">Your information updated successfully</string>
+    <string name="notification_msg">Let\'s drink some water</string>
+    <string name="intake_saved_msg">Your water intake was saved...!!</string>
+    <string name="already_achieve_msg">You already achieved the goal</string>
+    <string name="select_opt">Please select an option</string>
+    <string name="notification_enabled">Notification Enabled</string>
+    <string name="notifaication_disabled">Notification Disabled</string>
+    <string name="achieve_msg">You achieved the goal</string>
+    <string name="exit_msg">Please click BACK again to exit</string>
 
 
 </resources>

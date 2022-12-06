@@ -19,7 +19,7 @@ class SqliteUtils(val context: Context) : SQLiteOpenHelper(
         private val TABLE_STATS = "water_statistics"
         private val KEY_ID = "id"
         private val KEY_DATE = "date"
-        private val KEY_INTOOK = "intook"
+        private val KEY_TAKEN_INTAKE = "takenintake"
         private val KEY_TOTAL_INTAKE = "totalintake"
     }
 
@@ -27,7 +27,7 @@ class SqliteUtils(val context: Context) : SQLiteOpenHelper(
 
         val CREATE_STATS_TABLE = ("CREATE TABLE " + TABLE_STATS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_DATE + " TEXT UNIQUE,"
-                + KEY_INTOOK + " INT," + KEY_TOTAL_INTAKE + " INT" + ")")
+                + KEY_TAKEN_INTAKE + " INT," + KEY_TOTAL_INTAKE + " INT" + ")")
         db?.execSQL(CREATE_STATS_TABLE)
 
     }
@@ -41,7 +41,7 @@ class SqliteUtils(val context: Context) : SQLiteOpenHelper(
         if (checkExistance(date) == 0) {
             val values = ContentValues()
             values.put(KEY_DATE, date)
-            values.put(KEY_INTOOK, intook)
+            values.put(KEY_TAKEN_INTAKE, intook)
             values.put(KEY_TOTAL_INTAKE, totalintake)
             val db = this.writableDatabase
             val response = db.insert(TABLE_STATS, null, values)
@@ -53,11 +53,11 @@ class SqliteUtils(val context: Context) : SQLiteOpenHelper(
 
     @SuppressLint("Range")
     fun getWaterIntook(date: String): Int {
-        val selectQuery = "SELECT $KEY_INTOOK FROM $TABLE_STATS WHERE $KEY_DATE = ?"
+        val selectQuery = "SELECT $KEY_TAKEN_INTAKE FROM $TABLE_STATS WHERE $KEY_DATE = ?"
         val db = this.readableDatabase
         db.rawQuery(selectQuery, arrayOf(date)).use {
             if (it.moveToFirst()) {
-                return it.getInt(it.getColumnIndex(KEY_INTOOK))
+                return it.getInt(it.getColumnIndex(KEY_TAKEN_INTAKE))
             }
         }
         return 0
@@ -67,7 +67,7 @@ class SqliteUtils(val context: Context) : SQLiteOpenHelper(
         val intook = getWaterIntook(date)
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(KEY_INTOOK, intook + selectedWaterQuantityOption)
+        contentValues.put(KEY_TAKEN_INTAKE, intook + selectedWaterQuantityOption)
 
         val response = db.update(TABLE_STATS, contentValues, "$KEY_DATE = ?", arrayOf(date))
         db.close()
@@ -75,7 +75,7 @@ class SqliteUtils(val context: Context) : SQLiteOpenHelper(
     }
 
      private fun checkExistance(date: String): Int {
-        val selectQuery = "SELECT $KEY_INTOOK FROM $TABLE_STATS WHERE $KEY_DATE = ?"
+        val selectQuery = "SELECT $KEY_TAKEN_INTAKE FROM $TABLE_STATS WHERE $KEY_DATE = ?"
         val db = this.readableDatabase
         db.rawQuery(selectQuery, arrayOf(date)).use {
             if (it.moveToFirst()) {

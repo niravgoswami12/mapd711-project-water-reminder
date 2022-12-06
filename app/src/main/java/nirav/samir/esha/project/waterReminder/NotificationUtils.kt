@@ -12,27 +12,30 @@ import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import java.util.*
 
 class NotificationUtils(val ctx: Context) {
     private var notificationManager: NotificationManager? = null
 
-    private val CHANNEL_ONE_ID = "water.CHANNELONE"
-    private val CHANNEL_ONE_NAME = "Water Channel"
+    private val CHANNEL_ID = "water.CHANNELONE"
+    private val CHANNEL_NAME = "Water Channel"
 
 
     private fun createChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val prefs = ctx.getSharedPreferences(Utils.USERS_SHARED_DATA_PREF, Utils.PRIVATE_MODE)
+            val prefs = ctx.getSharedPreferences(Utils.USERS_SHARED_DATA_PREF,
+                AppCompatActivity.MODE_PRIVATE
+            )
             val notificationsNewMessageRingtone = prefs.getString(
                 Utils.NOTIFICATION_TONE_URI_PREFS, RingtoneManager.getDefaultUri(
                     RingtoneManager.TYPE_NOTIFICATION
                 ).toString()
             )
             val notificationChannel = NotificationChannel(
-                CHANNEL_ONE_ID,
-                CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_HIGH
+                CHANNEL_ID,
+                CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH
             )
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.BLUE
@@ -57,7 +60,7 @@ class NotificationUtils(val ctx: Context) {
         notificationsTone: String?
     ): NotificationCompat.Builder? {
         createChannels()
-        val notification = NotificationCompat.Builder(ctx.applicationContext, CHANNEL_ONE_ID)
+        val notification = NotificationCompat.Builder(ctx.applicationContext, CHANNEL_ID)
             .setContentTitle(title)
             .setContentText(body)
             .setLargeIcon(
@@ -73,7 +76,7 @@ class NotificationUtils(val ctx: Context) {
 
         notification.setSound(Uri.parse(notificationsTone))
 
-        val notificationIntent = Intent(ctx, MainActivity::class.java)
+        val notificationIntent = Intent(ctx, HomeActivity::class.java)
 
         notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val contentIntent =
@@ -85,7 +88,9 @@ class NotificationUtils(val ctx: Context) {
     }
 
     private fun shallNotify(): Boolean {
-        val prefs = ctx.getSharedPreferences(Utils.USERS_SHARED_DATA_PREF, Utils.PRIVATE_MODE)
+        val prefs = ctx.getSharedPreferences(Utils.USERS_SHARED_DATA_PREF,
+            AppCompatActivity.MODE_PRIVATE
+        )
         val sqliteUtils = SqliteUtils(ctx)
 
         val startTimestamp = prefs.getLong(Utils.WAKEUP_TIME_PREFS, 0)
