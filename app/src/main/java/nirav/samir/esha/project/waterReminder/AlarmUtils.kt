@@ -13,7 +13,7 @@ class AlarmUtils {
 
     private val ACTION_BD_NOTIFICATION = "water.NOTIFICATION"
 
-    fun setAlarm(context: Context, notificationFrequency: Long) {
+    fun setRepeatingAlarm(context: Context, notificationFrequency: Long) {
         val notificationFrequencyMs = TimeUnit.MINUTES.toMillis(notificationFrequency)
 
         alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

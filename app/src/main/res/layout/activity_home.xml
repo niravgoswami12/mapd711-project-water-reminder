@@ -15,7 +15,7 @@
             android:background="?attr/selectableItemBackground"
             android:padding="-8dp"
             android:scaleType="fitXY"
-            android:src="@drawable/menu_icon"
+            android:src="@drawable/ic_baseline_person_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/username_tv" />
 
@@ -67,7 +67,7 @@
             app:textColor="@color/colorBlack"
             app:textMargin="5dp"
             app:textSize="15sp"
-            app:totalProgress="120"
+            app:totalProgress="110"
             tools:ignore="MissingClass" />
 
     <TextView
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginBottom="4dp"
-            android:text="2000"
+            android:text="1500"
             android:textColor="@color/colorBlack"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="/3500 ml"
+            android:text="/2200 ml"
             android:textColor="@color/colorBlack"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvIntook"

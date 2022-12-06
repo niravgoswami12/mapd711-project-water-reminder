@@ -47,7 +47,6 @@ class ProfileActivity : AppCompatActivity() {
             finish()
         }
 
-        Log.d("omstart", myPrefs.getInt(Utils.WEIGHT_PREFS, 0).toString())
         userNameTextField.editText!!.setText("" + myPrefs.getString(Utils.USER_NAME, ""))
         weightTextField.editText!!.setText("" + myPrefs.getInt(Utils.WEIGHT_PREFS, 0))
         workTimeTextField.editText!!.setText("" + myPrefs.getInt(Utils.WORK_TIME_PREFS, 0))
@@ -225,7 +224,7 @@ class ProfileActivity : AppCompatActivity() {
                     editor.putLong(Utils.SLEEPING_TIME_PREFS, userSleepingTime)
                     editor.putString(Utils.NOTIFICATION_MSG_PREFS, notificationMessage)
                     editor.putInt(Utils.NOTIFICATION_FREQUENCY_PREFS, notificationFrequency)
-                    val sqliteUtils = SqliteUtils(this)
+                    val sqliteUtils = DbUtils(this)
                     if (currentTarget != customWaterTarget.toInt()) {
                         editor.putInt(Utils.TOTAL_INTAKE, customWaterTarget.toInt())
 
@@ -250,7 +249,7 @@ class ProfileActivity : AppCompatActivity() {
                     Toast.makeText(this, getString(R.string.update_success_msg), Toast.LENGTH_SHORT).show()
                     val alarmUtils = AlarmUtils()
                     alarmUtils.cancelAlarm(this)
-                    alarmUtils.setAlarm(
+                    alarmUtils.setRepeatingAlarm(
                         this,
                         myPrefs.getInt(Utils.NOTIFICATION_FREQUENCY_PREFS, 30).toLong()
                     )

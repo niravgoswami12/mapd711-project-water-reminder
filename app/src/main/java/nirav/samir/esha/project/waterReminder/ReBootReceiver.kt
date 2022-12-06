@@ -18,7 +18,7 @@ class ReBootReceiver : BroadcastReceiver() {
                 val notificationsNewMessage = prefs.getBoolean("notifications_new_message", true)
                 alarmUtils.cancelAlarm(context)
                 if (notificationsNewMessage) {
-                    alarmUtils.setAlarm(context, notificationFrequency.toLong())
+                    alarmUtils.setRepeatingAlarm(context, notificationFrequency.toLong())
                 }
             }
         }

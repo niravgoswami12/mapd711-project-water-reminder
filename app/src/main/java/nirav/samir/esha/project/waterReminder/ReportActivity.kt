@@ -21,7 +21,7 @@ import kotlin.math.max
 class ReportActivity : AppCompatActivity() {
 
     private lateinit var myPrefs: SharedPreferences
-    private lateinit var sqliteUtils: SqliteUtils
+    private lateinit var sqliteUtils: DbUtils
     private var totalWaterIntakePercentage: Float = 0f
     private var numberOfGlasses: Float = 0f
 
@@ -30,7 +30,7 @@ class ReportActivity : AppCompatActivity() {
         setContentView(R.layout.activity_report)
 
         myPrefs = getSharedPreferences(Utils.USERS_SHARED_DATA_PREF, MODE_PRIVATE)
-        sqliteUtils = SqliteUtils(this)
+        sqliteUtils = DbUtils(this)
 
         backBtn.setOnClickListener {
             finish()
@@ -44,9 +44,6 @@ class ReportActivity : AppCompatActivity() {
         if (cursor.moveToFirst()) {
 
             for (i in 0 until cursor.count) {
-                Log.d("data1----", cursor.getString(1))
-                Log.d("data2----", cursor.getString(2))
-                Log.d("data3----", cursor.getString(3))
                 waterDataArray.add(cursor.getString(1))
                 val percent = cursor.getInt(2) / cursor.getInt(3).toFloat() * 100
                 totalWaterIntakePercentage += percent
@@ -120,11 +117,7 @@ class ReportActivity : AppCompatActivity() {
                 remainingIntake.text = "0 ml"
             }
 
-            targetIntake.text = "${myPrefs.getInt(
-                Utils.TOTAL_INTAKE,
-                0
-            )
-            } ml"
+            targetIntake.text = "${myPrefs.getInt(Utils.TOTAL_INTAKE, 0)} ml"
 
             val percentage = sqliteUtils.getWaterIntook(Utils.getCurrentDateHumanReadable()!!) * 100 / myPrefs.getInt(
                 Utils.TOTAL_INTAKE,

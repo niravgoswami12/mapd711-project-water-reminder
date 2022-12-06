@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var myPrefs: SharedPreferences
-    private lateinit var sqliteUtils: SqliteUtils
+    private lateinit var sqliteUtils: DbUtils
     private var userName: String = ""
     private var totalWaterIntake: Int = 0
     private lateinit var currentDate: String
@@ -34,10 +33,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        Log.d("onCreate", "onCreate called")
 
         myPrefs = getSharedPreferences(Utils.USERS_SHARED_DATA_PREF, MODE_PRIVATE)
-        sqliteUtils = SqliteUtils(this)
+        sqliteUtils = DbUtils(this)
 
 
 
@@ -58,7 +56,6 @@ class HomeActivity : AppCompatActivity() {
         }
 
         currentDate = Utils.getCurrentDateHumanReadable()!!
-        Log.d("onStart", "onStart called")
         val outValue = TypedValue()
         applicationContext.theme.resolveAttribute(
             android.R.attr.selectableItemBackground,
@@ -70,7 +67,7 @@ class HomeActivity : AppCompatActivity() {
         val alarm = AlarmUtils()
         if (!alarm.checkAlarm(this) && notificationStatus) {
             btnNotific.setImageDrawable(getDrawable(R.drawable.bell_icon))
-            alarm.setAlarm(
+            alarm.setRepeatingAlarm(
                 this,
                 myPrefs.getInt(Utils.NOTIFICATION_FREQUENCY_PREFS, 30).toLong()
             )
@@ -92,7 +89,7 @@ class HomeActivity : AppCompatActivity() {
 
         fabAdd.setOnClickListener {
             if (selectedWaterQuantityOption != null) {
-                if ((numberOfInTook * 100 / totalWaterIntake) <= 120) {
+                if ((numberOfInTook * 100 / totalWaterIntake) <= 110) {
                     if (sqliteUtils.addIntook(currentDate, selectedWaterQuantityOption!!) > 0) {
                         numberOfInTook += selectedWaterQuantityOption!!
                         setWaterLevel(numberOfInTook, totalWaterIntake)
@@ -131,7 +128,7 @@ class HomeActivity : AppCompatActivity() {
             if (notificationStatus) {
                 btnNotific.setImageDrawable(getDrawable(R.drawable.bell_icon))
                 Toast.makeText(this, getString(R.string.notification_enabled), Toast.LENGTH_SHORT).show()
-                alarm.setAlarm(
+                alarm.setRepeatingAlarm(
                     this,
                     myPrefs.getInt(Utils.NOTIFICATION_FREQUENCY_PREFS, 30).toLong()
                 )
@@ -262,7 +259,7 @@ class HomeActivity : AppCompatActivity() {
             .duration(500)
             .playOn(intakeProgress)
         intakeProgress.currentProgress = progress
-        if ((inTook * 100 / totalWaterIntake) > 120) {
+        if ((inTook * 100 / totalWaterIntake) > 110) {
             Toast.makeText(this, getString(R.string.achieve_msg), Toast.LENGTH_SHORT)
                 .show()
         }

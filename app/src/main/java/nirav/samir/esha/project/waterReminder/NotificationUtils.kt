@@ -91,7 +91,7 @@ class NotificationUtils(val ctx: Context) {
         val prefs = ctx.getSharedPreferences(Utils.USERS_SHARED_DATA_PREF,
             AppCompatActivity.MODE_PRIVATE
         )
-        val sqliteUtils = SqliteUtils(ctx)
+        val sqliteUtils = DbUtils(ctx)
 
         val startTimestamp = prefs.getLong(Utils.WAKEUP_TIME_PREFS, 0)
         val stopTimestamp = prefs.getLong(Utils.SLEEPING_TIME_PREFS, 0)
@@ -107,23 +107,21 @@ class NotificationUtils(val ctx: Context) {
         val start = Date(startTimestamp)
         val stop = Date(stopTimestamp)
 
-        val passedSeconds = compareTimes(now, start)
-        val totalSeconds = compareTimes(stop, start)
+        val passedSeconds = getTimeDiff(now, start)
+        val totalSeconds = getTimeDiff(stop, start)
 
         // percentage which should have been consumed by now:
         val currentTarget = passedSeconds.toFloat() / totalSeconds.toFloat() * 100f
 
-        val doNotDisturbOff = passedSeconds >= 0 && compareTimes(now, stop) <= 0
+        val doNotDisturbOff = passedSeconds >= 0 && getTimeDiff(now, stop) <= 0
 
         val notify = doNotDisturbOff && (percent < currentTarget)
 
         return notify
     }
 
-    /* Thanks to:
-     * https://stackoverflow.com/questions/7676149/compare-only-the-time-portion-of-two-dates-ignoring-the-date-part
-    */
-    private fun compareTimes(currentTime: Date, timeToRun: Date): Long {
+    
+    private fun getTimeDiff(currentTime: Date, timeToRun: Date): Long {
         val currentCal = Calendar.getInstance()
         currentCal.time = currentTime
 

@@ -7,7 +7,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class SqliteUtils(val context: Context) : SQLiteOpenHelper(
+class DbUtils(val context: Context) : SQLiteOpenHelper(
     context,
     DATABASE_NAME, null,
     DATABASE_VERSION
