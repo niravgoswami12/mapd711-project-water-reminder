@@ -7,8 +7,13 @@ import java.util.*
 
 class Utils {
     companion object {
+        val LBS_IN_ONE_KG = 2.205
+        val ML_IN_ONE_Oz = 29.574
+        // Formula Ref. https://www.umsystem.edu/totalrewards/wellness/how-to-calculate-how-much-water-you-should-drink
         fun calculateWaterIntake(weight: Int, totalWorkTime: Int): Double {
-            return ((weight * 100 / 3.0) + (totalWorkTime / 6 * 7))
+            val weightInLbs = weight * LBS_IN_ONE_KG
+            val intakeInOunce = (weightInLbs * 0.5) + ((totalWorkTime/30)*12)
+            return intakeInOunce * ML_IN_ONE_Oz
         }
 
         @SuppressLint("SimpleDateFormat")
